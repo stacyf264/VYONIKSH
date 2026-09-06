@@ -1,4 +1,4 @@
-T (degC),p (mbar),rh (%),anomaly,anomaly_status,anomaly_score
+T (degC),p (mbar),rh (%),model_prediction,anomaly_status,anomaly_score
 -8.02,996.52,93.3,1,Normal,0.5121177964751791
 -8.41,996.57,93.4,1,Normal,0.5145815982166916
 -8.51,996.53,93.9,1,Normal,0.5162129726945721

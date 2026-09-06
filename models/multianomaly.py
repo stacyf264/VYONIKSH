@@ -41,14 +41,14 @@ model.fit(X)
 # -----------------------------
 # 5. Detect anomalies
 # -----------------------------
-data["anomaly"] = model.predict(X)
+data["model_prediction"] = model.predict(X)
 
 # Isolation Forest:
 #   1  = normal
 #  -1  = anomaly
 
 data["anomaly_status"] = np.where(
-    data["anomaly"] == -1,
+    data["model_prediction"] == -1,
     "Anomaly",
     "Normal"
 )
@@ -64,10 +64,10 @@ data["anomaly_score"] = -model.score_samples(X)
 print(data.head(20))
 
 print("\nNumber of anomalies:")
-print((data["anomaly"] == -1).sum())
+print((data["model_prediction"] == -1).sum())
 
 print("\nNumber of normal observations:")
-print((data["anomaly"] == 1).sum())
+print((data["model_prediction"] == 1).sum())
 
 # -----------------------------
 # 8. Save results
@@ -75,3 +75,16 @@ print((data["anomaly"] == 1).sum())
 data.to_csv("anomaly_results.csv", index=False)
 
 print("\nResults saved to anomaly_results.csv")
+print("\nOriginal injected anomalies:")
+print((df["anomaly"] == 1).sum())
+
+print("\nModel detected anomalies:")
+print((data["model_prediction"] == -1).sum())
+
+print("\nInjected anomalies detected by model:")
+print(
+    (
+        (df.loc[data.index, "anomaly"] == 1) &
+        (data["model_prediction"] == -1)
+    ).sum()
+)
